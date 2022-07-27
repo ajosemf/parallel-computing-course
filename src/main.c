@@ -1,32 +1,29 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "rand.h"
+#include "graph.h"
 
 
 int main(int argc, char** argv)
 {
     if (argc < 3)
     {
-        printf("You must pass two arguments:"
+        printf("You must pass three arguments:"
+                "\n\t  (int) n: Number of vertices"
                 "\n\t(float) p: ErdosRenyi probability in interval [0,1]"
-                "\n\t(int) s: Seed\n");
+                "\n\t  (int) s: Seed to reproducibility"
+                "\n");
         return 0;
     }
 
     // arguments
-    double p = atof(argv[1]);
-    srand(atoi(argv[2]));
+    int num_of_vertices = atoi(argv[1]);
+    double p = atof(argv[2]);
+    srand(atoi(argv[3]));
 
-    // test rand
-    int count = 0;
-    for (int i=0; i < 10; i++)
-    {
-        if (random_bool(p) == 1)
-            count += 1;
-    }
-    printf("\n");
-    printf("%d", count);
-    printf("\n");
+    // adjacency matrix
+    int adj[num_of_vertices][num_of_vertices];
+    create_adj_matrix(num_of_vertices, adj, p);
+    print_adj_matrix(num_of_vertices, adj);
 
     return 0;
 }
