@@ -29,3 +29,16 @@ If you want to enable warnings:
 ```shell
 $ gcc -g -Wall -fopenmp src/hello_world.c -o bin/hello
 ```
+## Running sequential BFS
+Inside openMP container, type the command below where:
+* arg1: (int) n: Number of vertices
+* arg2: (float) p: ErdosRenyi probability in interval [0,1]
+* arg3:  (int) s: Seed to reproducibility
+
+> `Note 1: for now, avoid n > 50 while print_matrix flag is not implemented`
+>
+> `Note 2: for a better experiment use p = 0.4`
+
+```shell
+$ ./compile_run.sh 50 0.4 1
+```
