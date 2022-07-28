@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <omp.h>
 
 
 void init_distances(unsigned int n, int *arr)
@@ -41,19 +42,26 @@ void bfs(unsigned int n, int adj[n][n])
 
     // traversal
     printf("Nodes extracted from frontier: ");
+    int level = 0;
     while (first != last)
     {
+        printf("Level %d", level);
         int node = extract_from_frontier(F, &first);
         printf("%d, ", node);
 
+        omp_set_num_threads(4);
+        #pragma omp parallel for shared(distances)
         for (int neighbor = 0; neighbor < n; neighbor++)
         {
+            printf("%d-%d, ", omp_get_thread_num(), neighbor);
             if (adj[node][neighbor] == 1 && distances[neighbor] == -1)
             {
                 F[last++] = neighbor;
                 distances[neighbor] = distances[node] + 1;
             }
         }
+        level += 1;
+        printf("\n\n");
     }
 
     // distances
