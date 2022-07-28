@@ -7,7 +7,7 @@ Architectures, systems, algorithms, programming models, languages and software t
 ## Requirements
 [Open MP](https://www.openmp.org/) >= 201511
 
-or in case you choose to run in a docker container (strongly recommended)
+or in case you choose to run in a docker container <span style="color: red;">(strongly recommended)</span>)
 
 [Docker](https://www.docker.com/) >= 20.10.17
 
