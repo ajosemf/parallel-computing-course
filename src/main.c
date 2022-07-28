@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "graph.h"
+#include "bfs.h"
 
 
 int main(int argc, char** argv)
@@ -24,6 +25,9 @@ int main(int argc, char** argv)
     int adj[num_of_vertices][num_of_vertices];
     create_adj_matrix(num_of_vertices, adj, p);
     print_adj_matrix(num_of_vertices, adj);
+
+    // bfs
+    bfs(num_of_vertices, adj);
 
     return 0;
 }

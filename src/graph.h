@@ -42,5 +42,5 @@ void print_adj_matrix(unsigned int n, int adj[n][n])
         }
         printf("\n");
     }
-    printf("Number of edges: %d\n", count);
+    printf("Number of edges: %d\n\n", count);
 }
