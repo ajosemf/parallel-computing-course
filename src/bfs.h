@@ -41,19 +41,26 @@ void bfs(unsigned int n, int adj[n][n])
     first++;
 
     // traversal
-    printf("Nodes extracted from frontier: ");
+    printf("Nodes extracted from frontier: \n");
     int level = 0;
     while (first != last)
     {
         printf("Level %d", level);
         int node = extract_from_frontier(F, &first);
-        printf("%d, ", node);
+        printf(", Extracted node: %d with neighbors: ", node);
 
-        omp_set_num_threads(4);
+        #if _OPENMP
+        omp_set_num_threads(omp_get_max_threads());
+        #endif
+
         #pragma omp parallel for shared(distances)
         for (int neighbor = 0; neighbor < n; neighbor++)
         {
-            printf("%d-%d, ", omp_get_thread_num(), neighbor);
+            #if _OPENMP
+            printf("Thread %d - Node %d, ", omp_get_thread_num(), neighbor);
+            #else
+            printf("%d, ", neighbor);
+            #endif
             if (adj[node][neighbor] == 1 && distances[neighbor] == -1)
             {
                 F[last++] = neighbor;
