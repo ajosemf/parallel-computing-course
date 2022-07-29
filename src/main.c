@@ -18,7 +18,7 @@ int main(int argc, char** argv)
     }
 
     // arguments
-    int num_of_vertices = atoi(argv[1]);
+    unsigned long int num_of_vertices = atol(argv[1]);
     double p = atof(argv[2]);
     srand(atoi(argv[3]));
     int verbose = 2;
@@ -26,13 +26,25 @@ int main(int argc, char** argv)
         verbose = atoi(argv[4]);
 
     // adjacency matrix
-    int adj[num_of_vertices][num_of_vertices];
+    int **adj;
+    adj = malloc(num_of_vertices * sizeof(int *));
+    for (int i = 0; i < num_of_vertices; ++i)
+        adj[i] = malloc(num_of_vertices * sizeof(int));
+
     create_adj_matrix(num_of_vertices, adj, p);
     if(verbose==1)
         print_adj_matrix(num_of_vertices, adj);
 
     // bfs
-    bfs(num_of_vertices, adj, &verbose);
+    double time_spent = bfs(num_of_vertices, adj, &verbose);
+
+    // result
+    #if _OPENMP
+        printf("\nParallel approach\n");
+    #else
+        printf("\nSequential approach\n");
+    #endif
+    printf("Time elapsed: %f\n\n", time_spent);
 
     return 0;
 }

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <omp.h>
+#include <time.h>
 
 
 void init_distances(unsigned int n, int *arr)
@@ -27,8 +28,12 @@ void print_distances(unsigned int n, int distances[])
 }
 
 
-void bfs(unsigned int n, int adj[n][n], int *verbose)
+double bfs(unsigned long int n, int **adj, int *verbose)
 {
+    // time execution control
+    double time_spent = 0.0;
+    clock_t begin = clock();
+    
     // init distances
     int distances[n];
     init_distances(n, distances);
@@ -78,6 +83,13 @@ void bfs(unsigned int n, int adj[n][n], int *verbose)
             printf("\n\n");
     }
 
-    // distances
-    print_distances(n, distances);
+    // elapsed time in seconds
+    clock_t end = clock();
+    time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
+
+    // result
+    if (*verbose==1)
+        print_distances(n, distances);
+
+    return time_spent;
 }

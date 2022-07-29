@@ -12,7 +12,7 @@ int random_bool(double p)
 }
 
 
-void create_adj_matrix(unsigned int n, int adj[n][n], double p)
+void create_adj_matrix(unsigned long int n, int **adj, double p)
 {
     for (int i=0; i < n; i++)
     {
@@ -29,7 +29,7 @@ void create_adj_matrix(unsigned int n, int adj[n][n], double p)
 }
 
 
-void print_adj_matrix(unsigned int n, int adj[n][n])
+void print_adj_matrix(unsigned int n, int **adj)
 {
     int i,j,count=0;
     for (i=0; i<n; i++)
