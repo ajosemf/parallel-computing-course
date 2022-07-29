@@ -7,7 +7,7 @@ Architectures, systems, algorithms, programming models, languages and software t
 ## Requirements
 [Open MP](https://www.openmp.org/) >= 201511
 
-or in case you choose to run in a docker container <span style="color: red;">(strongly recommended)</span>)
+or in case you choose to run in a docker container ***(strongly recommended)***
 
 [Docker](https://www.docker.com/) >= 20.10.17
 
@@ -29,16 +29,24 @@ If you want to enable warnings:
 ```shell
 $ gcc -g -Wall -fopenmp src/hello_world.c -o bin/hello
 ```
-## Running sequential BFS
-Inside openMP container, type the command below where:
+
+## Arguments
 * arg1: (int) n: Number of vertices
 * arg2: (float) p: ErdosRenyi probability in interval [0,1]
 * arg3:  (int) s: Seed to reproducibility
+* arg4:  (int) v: Verbose mode `(only for n<=50)` {1: on, 2: off, default: 2}.
+> `Note: for a better experiment use p <= 0.4`
 
-> `Note 1: for now, avoid n > 50 while print_matrix flag is not implemented`
->
-> `Note 2: for a better experiment use p = 0.4`
-
+## Running Sequential BFS
+Inside openMP container, run:
 ```shell
-$ ./compile_run.sh 50 0.4 1
+$ gcc src/main.c -o bin/sequential
+$ ./bin/sequential <args>
+```
+
+## Running Parallel BFS
+Inside openMP container, run:
+```shell
+$ gcc -fopenmp src/main.c -o bin/parallel
+$ ./bin/parallel <args>
 ```

@@ -27,7 +27,7 @@ void print_distances(unsigned int n, int distances[])
 }
 
 
-void bfs(unsigned int n, int adj[n][n])
+void bfs(unsigned int n, int adj[n][n], int *verbose)
 {
     // init distances
     int distances[n];
@@ -41,13 +41,16 @@ void bfs(unsigned int n, int adj[n][n])
     first++;
 
     // traversal
-    printf("Nodes extracted from frontier: \n");
+    if (*verbose==1)
+        printf("Nodes extracted from frontier: \n");
     int level = 0;
     while (first != last)
     {
-        printf("Level %d", level);
+        if (*verbose==1)
+            printf("Level %d", level);
         int node = extract_from_frontier(F, &first);
-        printf(", Extracted node: %d with neighbors: ", node);
+        if (*verbose==1)
+            printf(", Extracted node: %d with neighbors: ", node);
 
         #if _OPENMP
         omp_set_num_threads(omp_get_max_threads());
@@ -56,11 +59,14 @@ void bfs(unsigned int n, int adj[n][n])
         #pragma omp parallel for shared(distances)
         for (int neighbor = 0; neighbor < n; neighbor++)
         {
-            #if _OPENMP
-            printf("Thread %d - Node %d, ", omp_get_thread_num(), neighbor);
-            #else
-            printf("%d, ", neighbor);
-            #endif
+            if (*verbose == 1)
+            {
+                #if _OPENMP
+                printf("Thread %d - Node %d, ", omp_get_thread_num(), neighbor);
+                #else
+                printf("%d, ", neighbor);
+                #endif
+            }
             if (adj[node][neighbor] == 1 && distances[neighbor] == -1)
             {
                 F[last++] = neighbor;
@@ -68,7 +74,8 @@ void bfs(unsigned int n, int adj[n][n])
             }
         }
         level += 1;
-        printf("\n\n");
+        if (*verbose == 1)
+            printf("\n\n");
     }
 
     // distances
