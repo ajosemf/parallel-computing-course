@@ -49,10 +49,6 @@ double bfs(unsigned long int n, int **adj, int *verbose)
     if (*verbose==1)
         printf("Nodes extracted from frontier: \n");
     int level = 0;
-    #if _OPENMP
-    omp_set_num_threads(omp_get_max_threads());
-    #endif
-
     while (first != last)
     {
         int node = extract_from_frontier(F, &first);
