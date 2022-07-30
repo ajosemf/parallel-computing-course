@@ -8,11 +8,11 @@ int main(int argc, char** argv)
 {
     if (argc < 4)
     {
-        printf("You must pass three arguments:"
+        printf("You must pass at least three arguments:"
                 "\n\t  (int) n: Number of vertices"
                 "\n\t(float) p: ErdosRenyi probability in interval [0,1]"
                 "\n\t  (int) s: Seed to reproducibility"
-                "\n\t  (int) v: Verbose mode (only for n<=50) {1: on, 2: off, default: 2}"
+                "\n\t  (int) v: (optional) Verbose mode (only for n<=50) {1: on, 2: off, default: 2}"
                 "\n");
         return 0;
     }
