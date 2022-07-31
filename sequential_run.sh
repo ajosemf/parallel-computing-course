@@ -1,4 +1,4 @@
 #!/bin/bash
 
-gcc src/main.c -o bin/main
-./bin/main $1 $2 $3
+gcc src/main.c -o bin/sequential
+./bin/sequential $1 $2 $3 $4 $5
