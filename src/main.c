@@ -40,6 +40,15 @@ int main(int argc, char** argv)
     if (argc>5 && num_of_vertices<=50)
         verbose = atoi(argv[5]);
 
+    // header
+    #if _OPENMP
+        printf("\nApproach: Parallel\n");
+        printf("Num threads: %d\n", num_threads);
+    #else
+        printf("\nApproach: Sequential\n");
+    #endif
+    printf("Num vertices: %lu\n", num_of_vertices);
+
     // adjacency matrix
     int **adj;
     adj = malloc(num_of_vertices * sizeof(int *));
@@ -54,14 +63,7 @@ int main(int argc, char** argv)
     double time_spent = bfs(num_of_vertices, adj, &verbose);
 
     // result
-    #if _OPENMP
-        printf("\nParallel approach\n");
-        printf("Num threads: %d\n", num_threads);
-    #else
-        printf("\nSequential approach\n");
-    #endif
-    printf("Num vertices: %ld\n", num_of_vertices);
-    printf("Time elapsed: %f\n\n", time_spent);
+    printf("BFS time elapsed: %lf\n\n", time_spent);
 
     return 0;
 }
