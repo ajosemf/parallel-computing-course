@@ -46,34 +46,39 @@ double bfs(unsigned long int n, int **adj, int *verbose)
 
     // traversal
     if (*verbose==1)
-        printf("Nodes extracted from frontier: \n");
+        printf("\nBFS started\n");
     int max_distance = 0;
     while (first != next)
     {
         unsigned long int node = extract_from_frontier(F, &first);
         if (*verbose == 1)
-            printf("Extracted node: %lu\n", node);
+            printf("Extracted vertex: %lu, Added vertices (neighbor, thread): ", node);
 
         #pragma omp parallel for shared(F, next, distances) reduction(max:max_distance)
         for (unsigned long int neighbor = 0; neighbor < n; neighbor++)
         {
-            if (*verbose == 1)
-            {
-                #if _OPENMP
-                printf("Thread %d - Col %lu, ", omp_get_thread_num(), neighbor);
-                #endif
-            }
             if (adj[node][neighbor] == 1 && distances[neighbor] == -1)
             {
+                #pragma omp critical
                 F[next++] = neighbor;
                 distances[neighbor] = distances[node] + 1;
                 if (max_distance < distances[neighbor])
                     max_distance = distances[neighbor];
+                if (*verbose == 1)
+                {
+                    #if _OPENMP
+                    printf("(%lu,%d) ", neighbor, omp_get_thread_num());
+                    #else
+                    printf("(%lu,0) ", neighbor);
+                    #endif
+                }
             }
         }
         if (*verbose == 1)
-            printf("\n\n");
+            printf("\n");
     }
+    if (*verbose == 1)
+        printf("\n");
 
     // elapsed time in seconds
     get_time(&end);
