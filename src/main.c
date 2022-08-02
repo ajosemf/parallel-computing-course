@@ -61,10 +61,10 @@ int main(int argc, char** argv)
         print_adj_matrix(num_of_vertices, adj);
 
     // bfs
-    double time_spent = bfs(num_of_vertices, adj, &verbose);
+    float time_spent = bfs(num_of_vertices, adj, &verbose);
 
     // result
-    printf("BFS time elapsed: %lf\n\n", time_spent);
+    printf("BFS time spent in seconds: %0.8f\n\n", time_spent);
 
     return 0;
 }

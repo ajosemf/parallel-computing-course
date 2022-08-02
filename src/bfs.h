@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <omp.h>
-#include <time.h>
+#include "utils.h"
 
 
 void init_distances(unsigned long int n, int *arr)
@@ -31,8 +31,8 @@ void print_distances(unsigned long int n, int distances[])
 double bfs(unsigned long int n, int **adj, int *verbose)
 {
     // time execution control
-    double time_spent = 0.0;
-    clock_t begin = clock();
+    struct timeval start, end;
+    get_time(&start);
     
     // init distances
     int distances[n];
@@ -76,8 +76,8 @@ double bfs(unsigned long int n, int **adj, int *verbose)
     }
 
     // elapsed time in seconds
-    clock_t end = clock();
-    time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
+    get_time(&end);
+    float time_spent = time_diff(&start, &end);
 
     // Unreached vertices
     unsigned long int num_unreached_vertices = 0;
