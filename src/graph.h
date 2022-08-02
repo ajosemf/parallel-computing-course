@@ -12,8 +12,9 @@ int random_bool(double p)
 }
 
 
-void create_adj_matrix(unsigned long int n, int **adj, double p)
+unsigned long int create_adj_matrix(unsigned long int n, int **adj, double p)
 {
+    unsigned long int num_of_edges = 0;
     for (unsigned long int i=0; i < n; i++)
     {
         adj[i][i] = 0;  // no self-loops
@@ -24,23 +25,21 @@ void create_adj_matrix(unsigned long int n, int **adj, double p)
             int relation_value = random_bool(p);
             adj[i][j] = relation_value;
             adj[j][i] = relation_value;
+            if (relation_value == 1)
+                num_of_edges += 1;
         }
     }
+    return num_of_edges;
 }
 
 
 void print_adj_matrix(unsigned long int n, int **adj)
 {
-    unsigned long int i, j, count=0;
+    unsigned long int i, j;
     for (i=0; i<n; i++)
     {
         for (j=0; j<n; j++)
-        {
             printf("%d   ", adj[i][j]);
-            if (adj[i][j] == 1)
-                count += 1;
-        }
         printf("\n");
     }
-    printf("Number of edges: %lu\n\n", count);
 }
