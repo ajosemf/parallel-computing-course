@@ -33,9 +33,12 @@ $ gcc -g -Wall -fopenmp src/hello_world.c -o bin/hello
 ## Arguments
 * arg1: (int) n: Number of vertices
 * arg2: (float) p: ErdosRenyi probability in interval [0,1]
-* arg3:  (int) s: Seed to reproducibility
-* arg4:  (int) v: Verbose mode `(only for n<=50)` {1: on, 2: off, default: 2}.
-> `Note: for a better experiment use p <= 0.4`
+* arg3: (int) t: (optional) Number of threads to be allocated. Default MAX_NUM_THREADS.
+* arg4: (int) s: (optional) Seed to reproducibility. Default 1.
+* arg5: (int) v: (optional) Verbose mode (only for n<=50) {1: on, 2: off}. Default: 2.
+> `Note 1: to see BFS things happen, set verbose to 1.`
+> 
+> `Note 2: to see parallel approach performance, use n >= 10000.`
 
 ## Running Sequential BFS
 Inside openMP container, run:
