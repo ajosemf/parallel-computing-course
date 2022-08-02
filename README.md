@@ -39,6 +39,8 @@ $ gcc -g -Wall -fopenmp src/hello_world.c -o bin/hello
 > `Note 1: to see BFS things happen, set verbose to 1.`
 > 
 > `Note 2: to see parallel approach performance, use n >= 10000.`
+> 
+> `Note 3: n = 25000 can allocate approximately 2.5GB RAM so use sparingly :)`
 
 ## Running Sequential BFS
 Inside openMP container, run:
