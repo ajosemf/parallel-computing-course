@@ -30,6 +30,9 @@ If you want to enable warnings:
 $ gcc -g -Wall -fopenmp src/hello_world.c -o bin/hello
 ```
 
+## Parallel BFS with openMP
+In our work, we proposed a parallel BFS algorithm to solve the BFS problem. To run it, follow the instructions below.
+
 ## Arguments
 * arg1: (int) n: Number of vertices
 * arg2: (float) p: ErdosRenyi probability in interval [0,1]
@@ -55,3 +58,19 @@ Inside openMP container, run:
 $ gcc -fopenmp src/main.c -o bin/parallel
 $ ./bin/parallel <args>
 ```
+
+## Evaluation
+We evaluated the performance of the parallel approach with three graph sizes: 
+* 12.500 vertices, 788.816 edges (Half Size)
+* 25.000 vertices, 3.153.309 edges (Original)
+* 50.000 vertices, 12.619.979 edges (Double Size)
+
+To reproduce, run:
+```shell
+./evaluate > output.txt
+```
+The results are available in our [jupyter notebook](src/analysis.ipynb) (for details) and summarized in the graphs below.
+
+![times](plots/times.png)
+![speedup](plots/speedup.png)
+![efficiency](plots/efficiency.png)
