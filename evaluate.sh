@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 gcc src/main.c -o bin/sequential
 gcc -fopenmp src/main.c -o bin/parallel
 
